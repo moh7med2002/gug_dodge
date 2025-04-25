@@ -5,19 +5,45 @@ const gameOverModal = document.getElementById("gameOverModal");
 const finalScoreText = document.getElementById("finalScore");
 const replayButton = document.getElementById("replayButton");
 const gameOverSound = document.getElementById("gameOverSound");
+const mobileWarning = document.getElementById("mobileWarning");
 
 let score = 0;
 let bugs = [];
 let gameRunning = true;
 
-function createBug() {
-  const bug = document.createElement("div");
-  bug.classList.add("bug");
-  bug.style.left = Math.random() * (window.innerWidth - 45) + "px";
-  gameArea.appendChild(bug);
-  bugs.push({ el: bug, top: 0 });
+// Function to detect if the screen size is mobile
+function isMobile() {
+  return window.innerWidth <= 768;
 }
 
+// Show or hide the mobile warning and stop the game if mobile
+function handleMobileWarning() {
+  if (isMobile()) {
+    mobileWarning.style.display = 'flex';
+    gameRunning = false; // Stop the game from running
+  } else {
+    mobileWarning.style.display = 'none';
+    gameRunning = true; // Allow the game to run
+    gameLoop(); // Start the game loop if it's not mobile
+  }
+}
+
+// Function to create a bug
+function createBug() {
+  const bug1 = document.createElement("div");
+  bug1.classList.add("bug");
+  bug1.style.left = Math.random() * (window.innerWidth - 45) + "px";
+  gameArea.appendChild(bug1);
+  bugs.push({ el: bug1, top: 0 });
+
+  const bug2 = document.createElement("div");
+  bug2.classList.add("bug");
+  bug2.style.left = Math.random() * (window.innerWidth - 45) + "px";
+  gameArea.appendChild(bug2);
+  bugs.push({ el: bug2, top: 0 });
+}
+
+// Update bugs' positions and check for collisions
 function updateBugs() {
   bugs.forEach((bug, index) => {
     bug.top += 5;
@@ -34,7 +60,7 @@ function updateBugs() {
       gameRunning = false;
       finalScoreText.textContent = `Your final score is ${score}`;
       gameOverModal.classList.add("show");
-      gameOver(); // Use this to play sound consistently
+      gameOver();
     }
 
     if (bug.top > window.innerHeight) {
@@ -46,15 +72,13 @@ function updateBugs() {
   });
 }
 
+// Play game over sound
 function gameOver() {
-    // Reset the audio to the start
-    gameOverSound.currentTime = 0;
-  
-    // Play the sound
-    gameOverSound.play();
-  }
-  
+  gameOverSound.currentTime = 0;
+  gameOverSound.play();
+}
 
+// Move player with arrow keys
 function movePlayer(e) {
   const left = player.offsetLeft;
   const step = 100;
@@ -65,13 +89,12 @@ function movePlayer(e) {
   }
 }
 
+// Reset the game to the initial state
 function resetGame() {
-  // Reset values
   score = 0;
   scoreDisplay.textContent = "Score: 0";
   gameRunning = true;
 
-  // Remove bugs
   bugs.forEach((bug) => {
     if (bug.el && gameArea.contains(bug.el)) {
       gameArea.removeChild(bug.el);
@@ -79,23 +102,25 @@ function resetGame() {
   });
   bugs = [];
 
-  // Hide modal
   gameOverModal.classList.remove("show");
-
-  // Reset player to center
   player.style.left = "50%";
 
-  // Restart game loop
   gameLoop();
 }
 
-window.addEventListener("keydown", movePlayer);
+// Listen for the replay button click
 replayButton.addEventListener("click", resetGame);
 
+// Check if the screen size is mobile on load and resize
+window.addEventListener("load", handleMobileWarning);
+window.addEventListener("resize", handleMobileWarning);
+
+// Start creating bugs at intervals (two bugs at once)
 setInterval(() => {
   if (gameRunning) createBug();
 }, 1000);
 
+// Main game loop
 function gameLoop() {
   if (gameRunning) {
     updateBugs();
@@ -103,4 +128,10 @@ function gameLoop() {
   }
 }
 
-gameLoop();
+// Start the game loop if it's not mobile
+if (!isMobile()) {
+  gameLoop();
+}
+
+// Listen for player movements
+window.addEventListener("keydown", movePlayer);

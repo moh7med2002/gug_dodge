@@ -94,3 +94,47 @@ body {
 #replayButton:hover {
   background: linear-gradient(135deg, #00e6ff, #0052ff);
 }
+
+/* Mobile warning styles */
+#mobileWarning {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+#warningMessage {
+  background-color: #ff3d00;
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 100, 0, 0.5);
+  animation: fadeIn 0.5s ease;
+}
+
+#warningMessage h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #ffec00;
+}
+
+#warningMessage p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
