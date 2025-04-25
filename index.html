@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bug Dodge</title>
+    <link rel="stylesheet" href="./main.css" />
+  </head>
+  <body>
+    <div id="gameArea">
+      <div id="score">Score: 0</div>
+      <div id="player"></div>
+      <div id="gameOverModal">
+        <h1>Game Over</h1>
+        <p id="finalScore">Your final score is 0</p>
+        <button id="replayButton">Replay</button>
+      </div>
+    </div>
+
+    <audio id="gameOverSound" src="./sounds/game-over.mp3"></audio>
+
+    <script src="./index.js"></script>
+  </body>
+</html>

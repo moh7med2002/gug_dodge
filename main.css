@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+  color: white;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+}
+
+#gameArea {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#player {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #1de9b6, #1dc4e9);
+  border-radius: 50%;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.6);
+  transition: left 0.1s ease;
+}
+
+.bug {
+  position: absolute;
+  top: 0;
+  width: 45px;
+  height: 45px;
+  background: radial-gradient(circle at center, #ff6f00, #ff3d00);
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(255, 100, 0, 0.5);
+}
+
+#score {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 28px;
+  font-weight: bold;
+  color: #ffffff;
+  text-shadow: 0 0 10px #00ffe0aa;
+  background-color: rgba(0, 0, 0, 0.4);
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+#gameOverModal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #111a;
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+  text-align: center;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+#gameOverModal.show {
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#gameOverModal h1 {
+  font-size: 36px;
+  margin-bottom: 10px;
+  color: #00ffe0;
+}
+
+#gameOverModal p {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+#replayButton {
+  padding: 10px 25px;
+  font-size: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #00c6ff, #0072ff);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#replayButton:hover {
+  background: linear-gradient(135deg, #00e6ff, #0052ff);
+}
